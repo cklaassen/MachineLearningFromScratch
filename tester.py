@@ -1,11 +1,17 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
+from modules.linear_regression import _init
+from modules.LinearRegression import LinearRegression
 
-x = np.arange(0., 10., 0.2)
-print(len(x))
-y = np.random.random(50)
-print(x)
-print(y)
-print(x * y)
-plt.scatter(x, y*x)
-plt.show()
+
+
+df = pd.read_csv("resources/housing.csv")
+
+y = df["median_house_value"].to_numpy()
+df = df.drop("median_house_value", axis=1)
+X = df.to_numpy()
+
+_init(df)
+
+
