@@ -4,13 +4,8 @@ import pandas as pd
 from modules.linear_regression import LinearRegression
 
 
-
 df = pd.read_csv("resources/housing.csv")
 
-y = df["median_house_value"].to_numpy()
-df = df.drop("median_house_value", axis=1)
-X = df.to_numpy()
-
-LinearRegression()
+LinearRegression.from_dataframe(df)
 
 
