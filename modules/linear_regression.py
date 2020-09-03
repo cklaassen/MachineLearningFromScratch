@@ -6,27 +6,11 @@ from numpy import ndarray, random, insert, sum, zeros, power, isnan, delete
 class LinearRegression:
     def __init__(self, X: ndarray, y: ndarray):
         self.X = insert(X, 0, 1, axis=1)
-        missing_val_iterator = 0
         self.y = y
-        i = 0
-        nan_list = sum(isnan(self.X), axis=1)
-        print(nan_list)
-        while i < len(self.X):
-            if nan_list[i] > 0:
-                missing_val_iterator += 1
-                self.X = delete(self.X, i)
-                self.y = delete(self.y, i)
-            else:
-                print(i)
-                i += 1
-        print(missing_val_iterator)
-        missing_val_iterator = 0
-        for nan_list in (isnan(self.X)):
-            if sum(nan_list) > 0:
-                missing_val_iterator += 1
-        print(missing_val_iterator)
-        num_params = self.X.shape[1]
-        self.theta = random.random(num_params)
+        storage = ~isnan(self.X).any(axis=1)
+        self.X = self.X[storage]
+        self.y = self.y[storage]
+        self.theta = random.random(self.X.shape[1])
         self.values = sum(self.X * self.theta, axis=1)
         print(self.values)
         self.error = sum(power(self.values - self.y, 2))
