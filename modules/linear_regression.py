@@ -63,10 +63,6 @@ class LinearRegression:
     def _gradient_descent(self, alpha, num_iterations):
         for i in range(num_iterations):
             self.theta = self.theta - (alpha / self.X.shape[0]) * sum((self.values - self.y) * self.X.transpose())
-            if i % 10 == 0:
-                print(self.theta)
-                print(self.X[0])
-                print(self.values[0])
             self._calculate_result()
             self.cost.append((1 / self.X.shape[0]) * 0.5 * sum(square(self.values - self.y)))
         plt.plot(self.cost)
