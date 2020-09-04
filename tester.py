@@ -21,8 +21,7 @@ x = x.reshape((len(x), 1))
 
 lg = LinearRegression()
 lg.fit(x, y)
-lg._gradient_descent(.001, 10)
-print(y)
+lg._gradient_descent(.00001, 1000)
 
 y_pred = lg.theta[0] + lg.theta[1] * x
 plt.scatter(x, y)
