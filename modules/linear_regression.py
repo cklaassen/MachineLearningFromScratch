@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from numpy import ndarray, random, insert, sum, power, isnan, square
 
 
-class LinearRegression:
+class LinearRegressionMine:
     def __init__(self):
         self.X = None
         self.y = None
@@ -18,6 +18,7 @@ class LinearRegression:
         self.y = y
         self._data_cleaning()
         self._initiate_data()
+        self._gradient_descent()
 
     @dispatch(DataFrame)
     def fit(self, df):
@@ -26,6 +27,7 @@ class LinearRegression:
         self.X = df.to_numpy()
         self._data_cleaning()
         self._initiate_data()
+        self._gradient_descent()
 
     @dispatch(DataFrame, str)
     def fit(self, df, target):
@@ -34,6 +36,7 @@ class LinearRegression:
         self.X = df.to_numpy()
         self._data_cleaning()
         self._initiate_data()
+        self._gradient_descent()
 
     def _data_cleaning(self):
         # Insert 1 in front of every row of data for constant in equation
@@ -59,16 +62,21 @@ class LinearRegression:
     def _calculate_error(self):
         self.error = sum(power(self.values - self.y, 2))
 
+    def _run(self, alpha):
+        self.theta = self.theta - ((alpha / self.X.shape[0]) * sum((self.values - self.y) * self.X.transpose()))
+        self._calculate_result()
+        self.cost.append((1 / self.X.shape[0]) * 0.5 * sum(square(self.values - self.y)))
 
-    def _gradient_descent(self, alpha, num_iterations):
-        for i in range(num_iterations):
-            self.theta = self.theta - (alpha / self.X.shape[0]) * sum((self.values - self.y) * self.X.transpose())
-            if i % 10 == 0:
-                print(self.theta)
-                print(self.X[0])
-                print(self.values[0])
-            self._calculate_result()
-            self.cost.append((1 / self.X.shape[0]) * 0.5 * sum(square(self.values - self.y)))
+    def _gradient_descent(self, alpha=.000001, num_iterations=None):
+        if num_iterations is not None:
+            for i in range(num_iterations):
+                self._run(alpha)
+        else:
+            for i in range(30):
+                self._run(alpha)
+            while self.cost[len(self.cost) - 1] < self.cost[len(self.cost) - 2]:
+                print(self.cost[len(self.cost) - 1], " ", self.cost[len(self.cost) - 2])
+                self._run(alpha)
         plt.plot(self.cost)
         plt.show()
 
