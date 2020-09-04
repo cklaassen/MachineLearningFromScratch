@@ -18,6 +18,7 @@ class LinearRegression:
         self.y = y
         self._data_cleaning()
         self._initiate_data()
+        self._gradient_descent()
 
     @dispatch(DataFrame)
     def fit(self, df):
@@ -26,6 +27,7 @@ class LinearRegression:
         self.X = df.to_numpy()
         self._data_cleaning()
         self._initiate_data()
+        self._gradient_descent()
 
     @dispatch(DataFrame, str)
     def fit(self, df, target):
@@ -34,6 +36,7 @@ class LinearRegression:
         self.X = df.to_numpy()
         self._data_cleaning()
         self._initiate_data()
+        self._gradient_descent()
 
     def _data_cleaning(self):
         # Insert 1 in front of every row of data for constant in equation
@@ -59,17 +62,11 @@ class LinearRegression:
     def _calculate_error(self):
         self.error = sum(power(self.values - self.y, 2))
 
-
     def _gradient_descent(self, alpha=.000001, num_iterations=1000):
         for i in range(num_iterations):
-            for j in range(0, len(self.theta)):
-                self.theta[j] = self.theta[j] - ((alpha / self.X.shape[0]) * sum((self.values - self.y) * self.X.transpose()[j]))
-                print(self.theta[j])
+            self.theta = self.theta - ((alpha / self.X.shape[0]) * sum((self.values - self.y) * self.X.transpose()))
             self._calculate_result()
-            y_pred = self.theta[0] + self.theta[1] * self.X.transpose()[1]
-            plt.plot(self.X.transpose()[1], y_pred)
             self.cost.append((1 / self.X.shape[0]) * 0.5 * sum(square(self.values - self.y)))
-        plt.show()
         plt.plot(self.cost)
         plt.show()
 
