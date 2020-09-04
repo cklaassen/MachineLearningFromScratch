@@ -25,6 +25,8 @@ pred = reg.predict(x)
 
 lg = LinearRegressionMine()
 lg.fit(x, y)
+print(lg.predict(x))
+print(lg.performance())
 
 y_pred = lg.theta[0] + lg.theta[1] * x
 
