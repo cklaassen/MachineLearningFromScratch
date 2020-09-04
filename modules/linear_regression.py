@@ -30,6 +30,23 @@ class LinearRegression:
         X = df.to_numpy()
         cls(X, y)
 
+    @dispatch(ndarray, ndarray)
+    def fit(self, X, y):
+        self.X = X
+        self.y = y
+
+    @dispatch(DataFrame)
+    def fit(self, df):
+        self.y = df[df.columns[len(df.columns) - 1]].to_numpy()
+        df = df.drop(df.columns[len(df.columns) - 1], axis=1)
+        self.X = df.to_numpy()
+
+    @dispatch(DataFrame, str)
+    def fit(self, df, target):
+        self.y = df[df.columns[target]].to_numpy()
+        df = df.drop(df.columns[target], axis=1)
+        self.X = df.to_numpy()
+
     def _calculate_result(self):
         self.values = sum(self.X * self.theta, axis=1)
 
