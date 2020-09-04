@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
+from modules.linear_regression import LinearRegression
 
-x = np.arange(0., 10., 0.2)
-print(len(x))
-y = np.random.random(50)
-print(x)
-print(y)
-print(x * y)
-plt.scatter(x, y*x)
-plt.show()
+
+df = pd.read_csv("resources/housing.csv")
+
+LinearRegression.from_dataframe(df)
+
+
