@@ -1,7 +1,7 @@
 from multipledispatch import dispatch
 from pandas import DataFrame
 import matplotlib.pyplot as plt
-from numpy import ndarray, random, insert, sum, zeros, power, isnan, delete, square
+from numpy import ndarray, random, insert, sum, power, isnan, square
 
 
 class LinearRegression:
@@ -38,7 +38,6 @@ class LinearRegression:
     def _data_cleaning(self):
         # Insert 1 in front of every row of data for constant in equation
         self.X = insert(self.X, 0, 1, axis=1)
-
 
         # Check for NaN in both X and y data, remove any that exist
         storage = ~isnan(self.X).any(axis=1)
