@@ -60,7 +60,7 @@ class LinearRegression:
         self.error = sum(power(self.values - self.y, 2))
 
 
-    def _gradient_descent(self, alpha, num_iterations):
+    def _gradient_descent(self, alpha=.000001, num_iterations=1000):
         for i in range(num_iterations):
             for j in range(0, len(self.theta)):
                 self.theta[j] = self.theta[j] - ((alpha / self.X.shape[0]) * sum((self.values - self.y) * self.X.transpose()[j]))
