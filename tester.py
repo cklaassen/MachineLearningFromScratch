@@ -18,8 +18,6 @@ x = x.reshape((len(x), 1))
 
 # X = np.stack((x, z), axis=-1)
 
-plt.scatter(x, y)
-plt.show()
 
 lg = LinearRegression()
 lg.fit(x, y)
@@ -27,6 +25,11 @@ lg._gradient_descent(.001, 10)
 print(y)
 
 y_pred = lg.theta[0] + lg.theta[1] * x
+plt.scatter(x, y)
+plt.show()
+
+print(f'{lg.theta[1]}x + {lg.theta[0]}')
+
 plt.scatter(x, y)
 plt.plot(x, y_pred)
 plt.show()
