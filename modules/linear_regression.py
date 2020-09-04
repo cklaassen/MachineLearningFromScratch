@@ -75,9 +75,18 @@ class LinearRegressionMine:
             for i in range(30):
                 self._run(alpha)
             while self.cost[len(self.cost) - 1] < self.cost[len(self.cost) - 2]:
-                print(self.cost[len(self.cost) - 1], " ", self.cost[len(self.cost) - 2])
                 self._run(alpha)
         plt.plot(self.cost)
         plt.show()
+
+    def predict(self, X):
+        return sum(X * self.theta, axis=1)
+
+    def performance(self):
+        self._calculate_error()
+        return self.error
+
+
+
 
 
