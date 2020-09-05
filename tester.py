@@ -6,6 +6,16 @@ from sklearn.linear_model import LinearRegression
 from modules.logistic_regression import LogisticRegression
 
 
+x = np.arange(-300/2, 300/2, 1, dtype=np.float64)
+
+y1 = [0] * 150
+y2 = [1] * 150
+
+y = np.array((y1, y2))
+x = x.reshape((300, 1))
+print(y)
+
+
 # df = pd.read_csv("resources/housing.csv")
 #
 # n = 300
@@ -38,6 +48,9 @@ from modules.logistic_regression import LogisticRegression
 # plt.plot(x, y_pred, 'g-')
 # plt.show()
 
-log_R = LogisticRegression(3)
+log_R = LogisticRegression()
 
-print(log_R._sigmoid())
+log_R.fit(x, y)
+
+plt.plot(x, log_R.values)
+plt.show()
