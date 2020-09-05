@@ -60,8 +60,8 @@ class LogisticRegression:
     def _initiate_data(self):
         self.theta = np.random.random(self.X.shape[1])
 
-        self.values = sum(self.X * self.theta, axis=1)
+        self.values = self._sigmoid(np.sum(self.X * self.theta, axis=1))
         self.error = sum(np.power(self.values - self.y, 2))
 
     def _calculate(self):
-        self.values = self._sigmoid(self.theta * self.X)
+        self.values = self._sigmoid(np.sum(self.X * self.theta, axis=1))
