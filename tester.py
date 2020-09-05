@@ -12,8 +12,8 @@ y1 = [0] * 150
 y2 = [1] * 150
 
 y = np.array((y1, y2))
+y =y.reshape(300)
 x = x.reshape((300, 1))
-print(y)
 
 
 # df = pd.read_csv("resources/housing.csv")
@@ -52,5 +52,6 @@ log_R = LogisticRegression()
 
 log_R.fit(x, y)
 
+plt.scatter(x, y)
 plt.plot(x, log_R.values)
 plt.show()
