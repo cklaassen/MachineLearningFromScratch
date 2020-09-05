@@ -63,11 +63,12 @@ class LinearRegressionMine:
         self.error = sum(power(self.values - self.y, 2))
 
     def _run(self, alpha):
+        print(self.X.shape)
         self.theta = self.theta - ((alpha / self.X.shape[0]) * sum((self.values - self.y) * self.X.transpose()))
         self._calculate_result()
         self.cost.append((1 / self.X.shape[0]) * 0.5 * sum(square(self.values - self.y)))
 
-    def _gradient_descent(self, alpha=.000001, num_iterations=None):
+    def _gradient_descent(self, alpha=.000001, num_iterations=300):
         if num_iterations is not None:
             for i in range(num_iterations):
                 self._run(alpha)
@@ -76,6 +77,7 @@ class LinearRegressionMine:
                 self._run(alpha)
             while self.cost[len(self.cost) - 1] < self.cost[len(self.cost) - 2]:
                 self._run(alpha)
+        print(self.cost)
         plt.plot(self.cost)
         plt.show()
 
