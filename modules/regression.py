@@ -61,7 +61,7 @@ class Regression(object):
         self.values = np.sum(self.X * self.theta, axis=1)
         self.cost.append((1 / self.X.shape[0]) * 0.5 * sum(np.square(self.values - self.y)))
 
-    def _gradient_descent(self, alpha=.000001, num_iterations=300):
+    def _gradient_descent(self, alpha=.01, num_iterations=300):
         if num_iterations is not None:
             for i in range(num_iterations):
                 self._run(alpha)
