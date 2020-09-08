@@ -53,12 +53,12 @@ class Regression(object):
     def _initiate_data(self):
         self.theta = np.random.random(self.X.shape[1])
 
-        self.values = sum(self.X * self.theta, axis=1)
+        self.values = np.sum(self.X * self.theta, axis=1)
         self.error = sum(np.power(self.values - self.y, 2))
 
     def _run(self, alpha):
-        self.theta = self.theta - ((alpha / self.X.shape[0]) * sum((self.values - self.y) * self.X.transpose()))
-        self._calculate_result()
+        self.theta = self.theta - ((alpha / self.X.shape[0]) * np.sum((self.values - self.y) * self.X.transpose()))
+        self.values = np.sum(self.X * self.theta, axis=1)
         self.cost.append((1 / self.X.shape[0]) * 0.5 * sum(np.square(self.values - self.y)))
 
     def _gradient_descent(self, alpha=.000001, num_iterations=300):
@@ -73,3 +73,10 @@ class Regression(object):
         print(self.cost)
         plt.plot(self.cost)
         plt.show()
+
+    def _calculate_error(self):
+        self.error = sum(np.power(self.values - self.y, 2))
+
+    def performance(self):
+        self._calculate_error()
+        return self.error
