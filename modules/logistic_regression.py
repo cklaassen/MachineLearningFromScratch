@@ -62,12 +62,11 @@ class LogisticRegression:
         self.values = self._sigmoid(np.sum(self.X * self.theta, axis=1))
 
     def _run(self, alpha):
-        print(np.log(1 - self.values))
-        self.theta = self.theta - ((alpha / self.X.shape[0]) * np.sum((self.values - self.y) * self.X.transpose()))
+        self.theta = self.theta - alpha * (np.dot(self.X.T, (self.values - self.y)) / self.y.shape[0])
         self._calculate()
-        self.cost.append((1 / self.X.shape[0]) * 0.5 * sum((self.y * np.log(self.values)) + ((1 - self.y) * sum(np.log(1 - self.values)))))
+        self.cost.append((-self.y * np.log(self.values) - (1 - self.y) * np.log(1 - self.values)).mean())
 
-    def _gradient_descent(self, alpha=.000001, num_iterations=None):
+    def _gradient_descent(self, alpha=.1, num_iterations=10000):
         if num_iterations is not None:
             for i in range(num_iterations):
                 self._run(alpha)

@@ -6,14 +6,14 @@ from sklearn.linear_model import LinearRegression
 from modules.logistic_regression import LogisticRegression
 
 
-x = np.arange(-300/2, 300/2, 1, dtype=np.float64)
+x = np.arange(-100/2, 100/2, 1, dtype=np.float64)
 
-y1 = [0] * 150
-y2 = [1] * 150
+y1 = [0] * 50
+y2 = [1] * 50
 
 y = np.array((y1, y2))
-y =y.reshape(300)
-x = x.reshape((300, 1))
+y =y.reshape(100)
+x = x.reshape((100, 1))
 
 
 # df = pd.read_csv("resources/housing.csv")
